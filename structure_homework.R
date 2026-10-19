@@ -1,7 +1,7 @@
 #PSYC 259 Homework 3 - Data Structure
 #For full credit, provide answers for at least 8/11 questions
 
-#List names of students collaborating with: 
+#List names of students collaborating with: Ricky Haneda
 
 ### SETUP: RUN THIS BEFORE STARTING ----------
 
