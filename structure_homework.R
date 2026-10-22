@@ -103,10 +103,16 @@ rs_all <- rs_all %>%
 # in the new rs_joined compared to the original. Use nrow to check (there should be 799 rows)
 
 #ANSWER
+rs_all_old <- subset(rs_all, Source == "Old")
+rs_all_new <- subset(rs_all, Source == "New")
 
+rs_joined <- rs_all_old %>% 
+  full_join(rs_all_new,
+            by = join_by(Song == Song, Artist == Artist), 
+            suffix = c("_Old", "_New"))
+#Yes! 799 obs. of 8 variables 
 
-
-
+       
 ### Question 5 ----------
 
 # Let's clean up rs_joined with the following steps:
@@ -118,7 +124,9 @@ rs_all <- rs_all %>%
 # You should now be able to see how each song moved up/down in rankings between the two lists
 
 #ANSWER
-
+rs_joined <- rs_joined %>% 
+  select(Rank_Old, Song, Artist, Year_Old, Rank_New, Year_New) %>% 
+  
 
 ### Question 6 ----------
 
