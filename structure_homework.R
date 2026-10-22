@@ -38,7 +38,12 @@ load("rs_data.RData")
 # Why did some of the artist-song fail to match up?
 
 #ANSWER
+rs_joined_orig <- rs_old %>% 
+                    full_join(rs_new,
+                    by = join_by(Song == Song, Artist == Artist))
 
+nrow(rs_joined_orig) #860 rows 
+#The naming for songs and artists are not identical across the two datasets 
 
 
 ### Question 2 ---------- 
@@ -50,6 +55,19 @@ load("rs_data.RData")
 # Make Rank and Year into integer variables for rs_old before binding them into rs_all
 
 #ANSWER
+rs_old$Rank <- as.integer(rs_old$Rank)
+rs_old$Year <- as.integer(rs_old$Year)
+is.integer(rs_old$Rank)
+is.integer(rs_old$Year)
+
+rs_new <- rs_new %>% 
+          mutate(Source = "New")
+
+rs_old <- rs_old %>% 
+          mutate(Source = "Old")
+
+rs_all <- bind_rows(rs_old, rs_new)
+rs_all
 
 
 ### Question 3 ----------
@@ -62,6 +80,16 @@ load("rs_data.RData")
 # Use both functions to make all artists/song lowercase and remove any extra spaces
 
 #ANSWER
+rs_all <- rs_all %>% 
+  mutate(Artist = str_remove_all(Artist, "The ")) %>% 
+  mutate(Artist = str_replace_all(Artist, "&", "and")) %>% 
+  mutate(Song = str_replace_all(Song, "&", "and")) %>% 
+  mutate(Artist = str_remove_all(Artist, "[:punct:]")) %>% 
+  mutate(Song = str_remove_all(Song, "[:punct:]")) %>% 
+  mutate(Artist = str_to_lower(Artist, locale = "en")) %>% 
+  mutate(Song = str_to_lower(Song, locale = "en")) %>% 
+  mutate(Artist = str_trim(Artist, side = c("both", "left", "right"))) %>% 
+  mutate(Song = str_trim(Song, side = c("both", "left", "right")))
 
 
 ### Question 4 ----------
@@ -75,6 +103,8 @@ load("rs_data.RData")
 # in the new rs_joined compared to the original. Use nrow to check (there should be 799 rows)
 
 #ANSWER
+
+
 
 
 ### Question 5 ----------
