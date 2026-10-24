@@ -126,6 +126,10 @@ rs_joined <- rs_all_old %>%
 #ANSWER
 rs_joined <- rs_joined %>% 
   select(Rank_Old, Song, Artist, Year_Old, Rank_New, Year_New) %>% 
+  relocate(Rank_Old, .after = Artist) %>% 
+  na.omit(cols = Rank_Old, cols = Rank_New) %>% 
+  mutate(Rank_Change = (Rank_New - Rank_Old)) %>% 
+  arrange(Rank_Change)
   
 
 ### Question 6 ----------
@@ -137,7 +141,8 @@ rs_joined <- rs_joined %>%
 # Which decade improved the most?
 
 #ANSWER
-
+rs_joined %>% 
+  
 
 
 ### Question 7 ----------
