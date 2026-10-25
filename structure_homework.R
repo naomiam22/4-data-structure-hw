@@ -155,7 +155,6 @@ rs_joined %>%
 #The 1950s improved the most (Mean_Change = 118)
 
 
-
 ### Question 7 -----Decade### Question 7 ----------
 
 # Use fct_count to see the number of songs within each decade
@@ -185,7 +184,6 @@ top20 <- read_csv("top_20.csv")
 top20 <- top20 %>% 
   mutate(Release = dmy(Release)) %>% 
   parse_date_time(Release, "y m d")
-
 
 
 ### Question 9 --------
