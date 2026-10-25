@@ -145,8 +145,8 @@ rs_joined <- rs_joined %>%
   mutate(Decade = floor(Year_New/10)*10)
 
 rs_joined$Decade <- as.factor(rs_joined$Decade)
-  
-#Cant figure out how to add the "s" :(
+
+#Having trouble figuring out how to add the "s" :(
 
 rs_joined %>% 
   group_by(Decade) %>% 
@@ -164,8 +164,13 @@ rs_joined %>%
 # proportion of songs in each of the top three decades (vs. all the rest)
 
 #ANSWER
+fct_count(rs_joined$Decade, sort = TRUE)
 
+rs_joined$Decade %>% 
+  fct_lump_n(3) %>% 
+  table()
 
+# 1970 = 77, 1960 = 71, 1980 = 25, Other = 28
 
 
 ### Question 8 ---------- 
@@ -175,6 +180,12 @@ rs_joined %>%
 # Use parse_date_time to fix it
 
 #ANSWER
+top20 <- read_csv("top_20.csv")
+
+top20 <- top20 %>% 
+  mutate(Release = dmy(Release)) %>% 
+  parse_date_time(Release, "y m d")
+
 
 
 ### Question 9 --------
@@ -184,7 +195,8 @@ rs_joined %>%
 # overwrite top20 with the pivoted data (there should now be 20 rows!)
 
 #ANSWER
-
+top20 <- top20 %>% 
+  pivot_wider(names_from = "Style", values_from = "Value")
 
 
 ### Question 10 ---------
