@@ -141,11 +141,22 @@ rs_joined <- rs_joined %>%
 # Which decade improved the most?
 
 #ANSWER
-rs_joined %>% 
+rs_joined <- rs_joined %>% 
+  mutate(Decade = floor(Year_New/10)*10)
+
+rs_joined$Decade <- as.factor(rs_joined$Decade)
   
+#Cant figure out how to add the "s" :(
+
+rs_joined %>% 
+  group_by(Decade) %>% 
+  summarise(Mean_Change = mean(Rank_Change))
+
+#The 1950s improved the most (Mean_Change = 118)
 
 
-### Question 7 ----------
+
+### Question 7 -----Decade### Question 7 ----------
 
 # Use fct_count to see the number of songs within each decade
 # Then use fct_lump to limit decade to 3 levels (plus other), and
@@ -153,6 +164,7 @@ rs_joined %>%
 # proportion of songs in each of the top three decades (vs. all the rest)
 
 #ANSWER
+
 
 
 
