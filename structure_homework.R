@@ -196,6 +196,7 @@ top20 <- top20 %>%
 top20 <- top20 %>% 
   pivot_wider(names_from = "Style", values_from = "Value")
 
+#Yes! there are 20 rows now
 
 ### Question 10 ---------
 
@@ -208,7 +209,11 @@ top20 <- top20 %>%
 # Count the number of songs that were released in each season
 
 #ANSWER
+rs_joined_top20 <- left_join(top20, rs_joined, suffix = c("artist", "song"))
 
+rs_joined_top20$Release_Month <- lubridate::month(rs_joined_top20$Release, label = TRUE)
+
+rs_joined_top20$Seasons
 
 
 ### Question 11 ---------
@@ -219,6 +224,14 @@ top20 <- top20 %>%
 # Figure out which is the top-ranked song (from Rank_New) that used a minor key
 
 #ANSWER
+rs_joined_top20$Quality <- 
+  str_detect(rs_joined_20$Key, "m") 
+
+rs_joined_top20$Quality <-   
+  ifelse(rs_joined_top20$Quality, "Minor", "Major")
+
+
+
 
 
 
